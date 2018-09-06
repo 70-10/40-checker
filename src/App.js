@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 
 class App extends Component {
   constructor(props) {
@@ -13,13 +14,25 @@ class App extends Component {
   }
 
   render() {
+    const { text } = this.state;
+    const formClass = classNames(
+      "input",
+      "is-large",
+      { "is-success": text.length === 40 },
+      { "is-danger": text.length > 40 }
+    );
+    const countClass = classNames(
+      "title",
+      { "has-text-success": text.length === 40 },
+      { "has-text-danger": text.length > 40 }
+    );
     return (
       <section className="hero is-fullheight">
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="columns">
               <div className="column">
-                <h2 className="title">{this.state.text.length}</h2>
+                <h1 className={countClass}>{text.length}</h1>
               </div>
             </div>
             <div className="columns">
@@ -28,8 +41,8 @@ class App extends Component {
                   <div className="control">
                     <input
                       type="text"
-                      className="input is-large"
-                      value={this.state.text}
+                      className={formClass}
+                      value={text}
                       onChange={this.changeText}
                     />
                   </div>
